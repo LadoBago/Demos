@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  wso2am:
+    ports:
+      - "8280:8280"
+      - "8243:8243"
+      - "9443:9443"
+    image: wso2/wso2am:3.2.0
+    container_name: wso2am
+  wso2am-aw:
+    ports:
+      - "9091:9091"
+    image: wso2/wso2am-analytics-worker:3.2.0
+    container_name: wso2am-aw
+  wso2am-ad:
+    ports:
+      - "9643:9643"
+    image: wso2/wso2am-analytics-dashboard:3.2.0
+    container_name: wso2am-ad
+    volumes:
+        - type: bind
+          source: D:/wso2-demo/docker/config/deployment.yaml
+          target: /home/wso2carbon/wso2am-analytics-3.2.0/conf/dashboard/deployment.yaml
+
+volumes:
+  wso2am-data:
+    external: false
+    name: "wso2am-data"
